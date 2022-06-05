@@ -33,8 +33,17 @@ feeds.requestsFeed.addEventListener("click", (event) => {
 });
 
 feeds.friendsFeed.addEventListener("click", (event) => {
-	const id = event.target.getAttribute("data-key");
-	if (id !== null && event.target.tagName === "I") {
+	const bubblePath = event.composedPath();	
+	
+	const isIcon = Boolean(bubblePath.find((elem) => {
+		return elem.tagName === "I";
+	}));
+	
+	const { id } = bubblePath.find((elem) => {
+		return elem.id !== "";
+	});
+	
+	if (isIcon) {
 		const userName = document.querySelector(`[data-key="${id}"]`).childNodes[0].childNodes[0].innerText;
 		togglePopup(
 			true,
@@ -43,7 +52,7 @@ feeds.friendsFeed.addEventListener("click", (event) => {
 			null,
 			{ id }
 		);
-	} else if (id !== null) {
+	} else {
 		openConversation(id);
 	}
 });
