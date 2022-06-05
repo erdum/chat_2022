@@ -2,6 +2,7 @@ import {
 	getFirestore,
 	getDoc,
 	setDoc,
+	addDoc,
 	updateDoc,
 	doc,
 	collection,
@@ -99,6 +100,8 @@ const deleteFriend = async (uid) => {
 	});
 };
 
+const sendMsg = async (uid, text) => {};
+
 const listenUsers = async (callback) => {
 	const usersRef = collection(db, "users");
 	onSnapshot(usersRef, async (querySnap) => {
@@ -134,5 +137,6 @@ export {
 	addFriend,
 	deleteFriend,
 	getCurrProfile,
-	listenUsers
+	listenUsers,
+	sendMsg
 };
