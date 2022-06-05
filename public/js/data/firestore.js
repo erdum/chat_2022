@@ -24,7 +24,8 @@ const getCurrProfile = async () => {
 
 const fetchUserColor = async (uid) => {
 	const profile = await getProfile(uid);
-	return profile.color;
+	if (profile != null) return profile.color;
+	return null;
 };
 
 const getProfile = async (uid) => {
