@@ -4,7 +4,7 @@ import { toggleForm } from "../ui-state/ui-state-togglers.js";
 import {
 	fetchUserColor,
 	createUser,
-	fetchAllUsers,
+	listenUsers,
 	listenRequests,
 	listenFriends,
 	getProfile,
@@ -16,7 +16,6 @@ import renderRequestsFeed from "../ui-state/render-req-feed.js";
 import renderFriendsFeed from "../ui-state/render-friends-feed.js";
 
 const joinHandler = async ({ displayName, uid, email }) => {
-	console.log(displayName);
 	const userHasColor = await fetchUserColor(uid);
 	const generatedColor = randomColor();
 
@@ -34,8 +33,7 @@ const joinHandler = async ({ displayName, uid, email }) => {
 	signinBtnLoader(false);
 	toggleForm();
 
-	const allUsers = await fetchAllUsers();
-	renderAllUsersFeed(allUsers);
+	const unsubUsersListener = listenUsers(users => renderAllUsersFeed(users));
 
 	const unsubRequestsListener = listenRequests(async (requests) => {
 		if (requests.length > 0) {

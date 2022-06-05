@@ -69,14 +69,6 @@ const profilesToRenderList = async (profiles) => {
 	}));
 };
 
-const fetchAllUsers = async () => {
-	const querySnap = await getDocs(collection(db, "users"));
-	let users = snapToArray(querySnap);
-	users = users.filter((user) => user.id !== auth.currentUser.uid);
-	users = await profilesToRenderList(users);
-	return users;
-};
-
 const addRequest = async (uid) => {
 	const userRef = doc(db, "users", uid);
 	await updateDoc(userRef, {
@@ -107,6 +99,19 @@ const deleteFriend = async (uid) => {
 	});
 };
 
+const listenUsers = async (callback) => {
+	const usersRef = collection(db, "users");
+	onSnapshot(usersRef, async (querySnap) => {
+		let users = snapToArray(querySnap);
+		const { friends, requests } = await getProfile(auth.currentUser.uid);
+		users = users.filter(user => !friends.includes(user.id));
+		users = users.filter(user => !requests.includes(user.id));
+		users = users.filter(user => user.id !== auth.currentUser.uid);
+		users = await profilesToRenderList(users);
+		callback(users);
+	});
+};
+
 const listenRequests = (callback) => {
 	const requestsRef = doc(db, "users", auth.currentUser.uid);
 	return onSnapshot(requestsRef, (doc) => callback(doc.data().requests));
@@ -120,7 +125,6 @@ const listenFriends = (callback) => {
 export {
 	fetchUserColor,
 	createUser,
-	fetchAllUsers,
 	addRequest,
 	listenRequests,
 	listenFriends,
@@ -129,5 +133,6 @@ export {
 	profilesToRenderList,
 	addFriend,
 	deleteFriend,
-	getCurrProfile
+	getCurrProfile,
+	listenUsers
 };
