@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel=icon href=https://ui-avatars.com/api/?name=supreme&background=ff0002&color=ffffff&size=16&font-size=0.6&rounded=true&bold=true&format=svg> <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supreme Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+<body>
+    <div class="my_navbar">
+        <div class="banner_wrapper">
+            <div class="banner">
+                <p>Supreme</p>
+            </div>
+            <div class="status">
+                <img alt="Your avatar" id="user_avatar" src="">
+                <p>Erdum</p>
+            </div>
+        </div>
+        <i id="menu_btn" class="fas fa-bars"></i>
+    </div>
+    <div class="bar_group">
+        <div class="tab_bar">
+            <div class="tab_btn"><i id="all_users" class="fas fa-users"></i></div>
+            <div class="tab_btn"><i id="requests" class="fas fa-user-check"></i></div>
+            <div class="tab_btn"><i id="friends" class="fas fa-comment-alt"></i></div>
+        </div>
+        <div class="action_bar">
+            <h2 class="data_feed_heading">All Users</h2>
+            <input type="text" id="search_bar" placeholder="search...">
+            <a id="search_btn" href="#search"><i class="fas fa-search"></i></a>
+        </div>
+        <div class="list_wrapper">
+            <ul class="data_feed">
+                <h1>Currently no users found on the network</h1>
+            </ul>
+            <ul class="data_feed">
+                <h1>You have no request's</h1>
+            </ul>
+            <ul class="data_feed">
+                <h1>You have no messages</h1>
+            </ul>
+        </div>
+        <div class="chat_ui">
+            <div class="chat_bar">
+                <input id="msg_input" type="text" placeholder="type here...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="entry hide_form">
+            <div class="form">
+                <h1 class="form_heading">Join Chat</h1>
+                <!-- <input id="user_name" maxlength="10" class="form_input" type="text" placeholder="Enter your name">
+                <input id="user_email" maxlength="30" class="form_input" type="email" placeholder="Enter your email id"> -->
+                <div class="form_banner">
+                	<img src="./images/google-icon.svg">
+                	<p>Powerd by Google Cloud Platform (Firebase)</p>
+                </div>
+                <button id="form_btn" class="form_btn">Join</button>
+            </div>
+        </div>
+        <div class="popup_wrapper">
+            <div class="popup">
+                <p></p>
+                <div>
+                    <button><i id="cancel" class="fas fa-times-circle"></i></button>
+                    <button><i id="ok" class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro">
+        <div class="intro_banner">
+            <p>Supreme</p>
+        </div>
+        <div>
+            <p>Adnan & Son IT group Pakistan</p>
+        </div>
+    </div>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/modules/hash-state-manager.js"></script>
+    <script type="module" src="js/modules/feed-state-manager.js"></script>
+    <script type="module" src="js/modules/scroll-state-manager.js"></script>
+    <script type="module" src="js/modules/tabbar-state-manager.js"></script>
+</body>
+
+</html>
