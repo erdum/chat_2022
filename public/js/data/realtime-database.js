@@ -20,4 +20,13 @@ const updatePresence = (uid, isUserTyping = false) => {
 	});
 };
 
-export { setUserPresence, updatePresence };
+const listenPresenceChange = (callback) => {
+	const listener = onValue(ref(db, "users/"), (snapShot) => {
+		callback(snapShot.val());
+	});
+	return function() {
+		off(listener);
+	};
+};
+
+export { setUserPresence, updatePresence, listenPresenceChange };

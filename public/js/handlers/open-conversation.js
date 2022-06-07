@@ -1,4 +1,5 @@
 import { getProfile, sendMsg, listenMessages } from "../data/firestore.js";
+import { updatePresence } from "../data/realtime-database.js";
 import { openChat } from "../ui-state/ui-setters.js";
 import renderMessages from "../ui-state/render-messages.js";
 import { auth } from "../app.js";
@@ -33,8 +34,9 @@ const openConversation = async (id) => {
 		await sendMsg(id.substr(0, id.length - 3), text);
 	};
 
-	const handleTyping = async (event) => {
-		console.log(event);
+	const handleTyping = (event) => {
+		const text = event.target.value;
+		updatePresence(id.substr(0, id.length - 3), text.length > 0);
 	};
 
 	if (unsubMessagesListener != null) unsubMessagesListener();
@@ -53,7 +55,7 @@ const openConversation = async (id) => {
 	const sendMsgBtn = document.getElementById("send_msg");
 	const msgInput = document.getElementById("msg_input");
 	sendMsgBtn.addEventListener("click", handleSend);
-	msgInput.addEventListener("change", handleTyping);
+	msgInput.addEventListener("input", handleTyping);
 };
 
 export default openConversation;

@@ -11,6 +11,7 @@ import {
 	getProfilesByIds,
 	profilesToRenderList
 } from "../data/firestore.js";
+import { listenPresenceChange } from "../data/realtime-database.js";
 import renderAllUsersFeed from "../ui-state/render-au-feed.js";
 import renderRequestsFeed from "../ui-state/render-req-feed.js";
 import renderFriendsFeed from "../ui-state/render-friends-feed.js";
@@ -53,6 +54,8 @@ const joinHandler = async ({ displayName, uid, email }) => {
 			renderFriendsFeed([]);
 		}
 	});
+
+	const unsubPresenceListener = listenPresenceChange((data) => console.log(data));
 };
 
 export default joinHandler;
