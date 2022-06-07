@@ -113,8 +113,10 @@ const sendMsg = async (uid, text) => {
 		timestamp: serverTimestamp()
 	};
 
-	await setDoc(recipientRef, { ...payload, id: recipientRef.id });
-	await setDoc(userRef, { ...payload, id: recipientRef.id });
+	if (text !== "") {
+		await setDoc(recipientRef, { ...payload, id: recipientRef.id });
+		await setDoc(userRef, { ...payload, id: recipientRef.id });
+	}
 };
 
 const listenUsers = async (callback) => {
