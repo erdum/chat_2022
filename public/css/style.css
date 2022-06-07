@@ -479,6 +479,7 @@ body {
     color: white;
     font-size: 1.4rem;
     word-wrap: break-word;
+    margin-bottom: 0.5rem;
 }
 
 .msg_time {

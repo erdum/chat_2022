@@ -12,6 +12,7 @@ import {
 	onSnapshot,
 	query,
 	where,
+	orderBy,
 	serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 import app from "./firebase.js";
@@ -102,15 +103,17 @@ const deleteFriend = async (uid) => {
 };
 
 const sendMsg = async (uid, text) => {
-	const recipientRef = collection(db, "users", uid, "messages");
+	const recipientRef = doc(collection(db, "users", uid, "messages"));
+	const userRef = doc(collection(db, "users", auth.currentUser.uid, "messages"));
 	const payload = {
 		text,
 		read: false,
 		recipient: uid,
 		timestamp: serverTimestamp()
 	};
-	const { id: msgId } = await addDoc(recipientRef, payload);
-	await setDoc(doc(db, "users", auth.currentUser.uid, "messages", msgId), payload);
+
+	await setDoc(recipientRef, { ...payload, id: recipientRef.id });
+	await setDoc(userRef, { ...payload, id: recipientRef.id });
 };
 
 const listenUsers = async (callback) => {
@@ -134,7 +137,7 @@ const listenFriends = (callback) => {
 };
 
 const listenMessages = (callback) => {
-	const messagesRef = collection(db, "users", auth.currentUser.uid, "messages");
+	const messagesRef = query(collection(db, "users", auth.currentUser.uid, "messages"), orderBy("timestamp"));
 	return onSnapshot(messagesRef, querySnap => {
 		const messages = snapToArray(querySnap);
 		if (!querySnap.metadata.hasPendingWrites) callback(messages);
