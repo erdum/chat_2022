@@ -2,12 +2,6 @@ import createMsg from "../components/msg.js";
 
 const renderMessages = (messagesList) => {
 	const chatBox = document.querySelector(".chat_ui");
-	while (chatBox.children.length > 1) {
-		chatBox.removeChild(chatBox.lastElementChild);
-	}
-
-	console.log(messagesList);
-
 	messagesList.forEach((msg) => {
 		createMsg(
 			msg.id,

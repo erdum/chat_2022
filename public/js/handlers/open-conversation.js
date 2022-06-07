@@ -8,10 +8,18 @@ const msgInput = document.getElementById("msg_input");
 
 let unsubMessagesListener = null;
 
+const clearMessages = () => {
+	const chatBox = document.querySelector(".chat_ui");
+	while (chatBox.children.length > 1) {
+		chatBox.removeChild(chatBox.lastElementChild);
+	}
+};
+
 const openConversation = async (id) => {
 	const { name, color, status } = await getProfile(
 		id.substr(0, id.length - 3)
 	);
+	clearMessages();
 
 	const handleSend = async () => {
 		const text = msgInput.value;
