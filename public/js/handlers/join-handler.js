@@ -24,7 +24,6 @@ const joinHandler = async ({ displayName, uid, email }) => {
 			color: generatedColor,
 			name: displayName,
 			email,
-			status: "online",
 			requests: [],
 			friends: [],
 		});

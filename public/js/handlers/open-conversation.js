@@ -3,7 +3,6 @@ import { openChat } from "../ui-state/ui-setters.js";
 import renderMessages from "../ui-state/render-messages.js";
 import { auth } from "../app.js";
 
-const msgInput = document.getElementById("msg_input");
 
 let unsubMessagesListener = null;
 
@@ -24,15 +23,18 @@ const openConversation = async (id) => {
 		id.substr(0, id.length - 3)
 	);
 	clearEventListener(document.getElementById("send_msg"));
+	clearEventListener(document.getElementById("msg_input"));
 	clearMessages();
 	openChat(name, color);
-
-	console.log(id.substr(0, id.length - 3));
 
 	const handleSend = async () => {
 		const text = msgInput.value;
 		msgInput.value = "";
 		await sendMsg(id.substr(0, id.length - 3), text);
+	};
+
+	const handleTyping = async (event) => {
+		console.log(event);
 	};
 
 	if (unsubMessagesListener != null) unsubMessagesListener();
@@ -49,7 +51,9 @@ const openConversation = async (id) => {
 	});
 
 	const sendMsgBtn = document.getElementById("send_msg");
+	const msgInput = document.getElementById("msg_input");
 	sendMsgBtn.addEventListener("click", handleSend);
+	msgInput.addEventListener("change", handleTyping);
 };
 
 export default openConversation;

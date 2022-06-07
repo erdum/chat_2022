@@ -17,6 +17,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 import app from "./firebase.js";
 import { auth } from "../app.js";
+import { setUserPresence } from "./realtime-database.js";
 
 const db = getFirestore(app);
 
@@ -61,6 +62,7 @@ const snapToArray = (iterable) => {
 const createUser = async (uid, data) => {
 	const docRef = doc(db, "users", uid);
 	await setDoc(docRef, { ...data, id: uid });
+	setUserPresence(uid);
 };
 
 const profilesToRenderList = async (profiles) => {
