@@ -22,7 +22,10 @@ const openConversation = async (id) => {
 
 	if (unsubMessagesListener != null) unsubMessagesListener();
 	unsubMessagesListener = listenMessages(messages => {
-		const filteredMessages = messages.filter(msg => msg.recipient === auth.currentUser.uid || msg.recipient === id.substr(0, id.length - 3));
+		const filteredMessages = messages.filter(msg => 
+			(msg.sender === auth.currentUser.uid && msg.recipient === id.substr(0, id.length - 3)) ||
+			(msg.sender === id.substr(0, id.length - 3) && msg.recipient === auth.currentUser.uid)
+		);
 		const renderableMessages = filteredMessages.map(msg => ({
 			...msg,
 			out: msg.recipient !== auth.currentUser.uid,

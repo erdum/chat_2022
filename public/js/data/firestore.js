@@ -109,6 +109,7 @@ const sendMsg = async (uid, text) => {
 		text,
 		read: false,
 		recipient: uid,
+		sender: auth.currentUser.uid,
 		timestamp: serverTimestamp()
 	};
 
