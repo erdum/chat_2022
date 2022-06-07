@@ -23,7 +23,6 @@ const auth = getAuth();
 
 const menuBtn = document.querySelector("#menu_btn");
 // const searchBtn = document.querySelector("#search_btn");
-// const msgInput = document.getElementById("msg_input");
 const introWrapper = document.querySelector(".intro");
 const signinBtn = document.getElementById("form_btn");
 

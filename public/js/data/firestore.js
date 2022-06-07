@@ -11,7 +11,8 @@ import {
 	arrayRemove,
 	onSnapshot,
 	query,
-	where
+	where,
+	serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 import app from "./firebase.js";
 import { auth } from "../app.js";
@@ -100,29 +101,44 @@ const deleteFriend = async (uid) => {
 	});
 };
 
-const sendMsg = async (uid, text) => {};
+const sendMsg = async (uid, text) => {
+	const recipientRef = collection(db, "users", uid, "messages");
+	const payload = {
+		text,
+		read: false,
+		recipient: uid,
+		timestamp: serverTimestamp()
+	};
+	const { id: msgId } = await addDoc(recipientRef, payload);
+	await setDoc(doc(db, "users", auth.currentUser.uid, "messages", msgId), payload);
+};
 
 const listenUsers = async (callback) => {
 	const usersRef = collection(db, "users");
 	onSnapshot(usersRef, async (querySnap) => {
-		let users = snapToArray(querySnap);
 		const { friends, requests } = await getProfile(auth.currentUser.uid);
-		users = users.filter(user => !friends.includes(user.id));
-		users = users.filter(user => !requests.includes(user.id));
-		users = users.filter(user => user.id !== auth.currentUser.uid);
-		users = await profilesToRenderList(users);
-		callback(users);
+		const users = snapToArray(querySnap).filter(user => !(friends.includes(user.id) || requests.includes(user.id) || user.id === auth.currentUser.uid));
+		const profiles = await profilesToRenderList(users);
+		callback(profiles);
 	});
 };
 
 const listenRequests = (callback) => {
 	const requestsRef = doc(db, "users", auth.currentUser.uid);
-	return onSnapshot(requestsRef, (doc) => callback(doc.data().requests));
+	return onSnapshot(requestsRef, doc => callback(doc.data().requests));
 };
 
 const listenFriends = (callback) => {
 	const friendsRef = doc(db, "users", auth.currentUser.uid);
-	return onSnapshot(friendsRef, (doc) => callback(doc.data().friends));
+	return onSnapshot(friendsRef, doc => callback(doc.data().friends));
+};
+
+const listenMessages = (callback) => {
+	const messagesRef = collection(db, "users", auth.currentUser.uid, "messages");
+	return onSnapshot(messagesRef, querySnap => {
+		const messages = snapToArray(querySnap);
+		if (!querySnap.metadata.hasPendingWrites) callback(messages);
+	});
 };
 
 export {
@@ -138,5 +154,6 @@ export {
 	deleteFriend,
 	getCurrProfile,
 	listenUsers,
-	sendMsg
+	sendMsg,
+	listenMessages
 };
