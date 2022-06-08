@@ -11,8 +11,7 @@ const renderMessages = (messagesList) => {
 				out: msg.out,
 				text: msg.text,
 				time: `
-					${String(msg.timestamp.toDate().getHours()).padStart(2, "0")}:
-					${String(msg.timestamp.toDate().getMinutes()).padStart(2, "0")} @ 
+					${String(msg.timestamp.toDate().getHours()).padStart(2, "0")}:${String(msg.timestamp.toDate().getMinutes()).padStart(2, "0")} @ 
 					${msg.timestamp.toDate().toLocaleString("default", { month: "short", day: "2-digit" })}
 				`,
 			},
