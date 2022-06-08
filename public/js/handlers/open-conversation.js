@@ -55,6 +55,12 @@ const openConversation = async (id) => {
 	const sendMsgBtn = document.getElementById("send_msg");
 	const msgInput = document.getElementById("msg_input");
 	sendMsgBtn.addEventListener("click", handleSend);
+	sendMsgBtn.addEventListener("mousedown", () => {
+		const currentActiveElement = document.activeElement;
+		setTimeout(() => {
+			currentActiveElement.focus();
+		}, 5);
+	});
 	msgInput.addEventListener("input", handleTyping);
 };
 
