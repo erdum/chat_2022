@@ -4,7 +4,7 @@ const updateUserPresence = (item, data) => {
 	if (id in data) {
 		const { lastSeen } = data[id];
 		const statusElem = item.querySelector("div > div.user_data p");
-		if ((now - lastSeen) / 1000 >= 60) {
+		if ((now - lastSeen) / 1000 >= 15) {
 			statusElem.textContent = "offline";
 		} else {
 			statusElem.textContent = "online";
