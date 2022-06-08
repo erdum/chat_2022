@@ -70,7 +70,7 @@ const profilesToRenderList = async (profiles) => {
 		key: id,
 		userName: name,
 		userStatus: status,
-		iconSrc: `https://ui-avatars.com/api/?name=${name.replace(/\s*/g, "")}&background=${color}&color=ffffff`
+		iconSrc: `https://ui-avatars.com/api/?background=${color}&color=ffffff&name=${name}`
 	}));
 };
 
