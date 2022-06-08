@@ -19,6 +19,8 @@ const renderMessages = (messagesList) => {
 			msg.out
 		);
 	});
+
+	chatBox.lastElementChild.scrollIntoView({ behavior: "smooth" });
 };
 
 export default renderMessages;
