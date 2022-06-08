@@ -36,7 +36,7 @@ const openConversation = async (id) => {
 
 	const handleTyping = (event) => {
 		const text = event.target.value;
-		updatePresence(id.substr(0, id.length - 3), text.length > 0);
+		updatePresence(auth.currentUser.uid, text.length > 0);
 	};
 
 	if (unsubMessagesListener != null) unsubMessagesListener();

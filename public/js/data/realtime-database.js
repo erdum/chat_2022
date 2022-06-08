@@ -12,12 +12,12 @@ const setUserPresence = (uid) => {
 	});
 };
 
-const updatePresence = (uid, isUserTyping = false) => {
-	const now = Date.now();
-	update(ref(rtb, "users/" + uid), {
-		lastSeen: now,
-		typing: isUserTyping
-	});
+const updatePresence = (uid, isUserTyping = null) => {
+	const payload = {};
+	payload.lastSeen = Date.now();
+	
+	if (isUserTyping != null) payload.typing = isUserTyping;
+	update(ref(rtb, "users/" + uid), payload);
 };
 
 const listenPresenceChange = (callback) => {

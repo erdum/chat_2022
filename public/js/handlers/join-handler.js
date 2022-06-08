@@ -11,10 +11,11 @@ import {
 	getProfilesByIds,
 	profilesToRenderList
 } from "../data/firestore.js";
-import { listenPresenceChange } from "../data/realtime-database.js";
+import { listenPresenceChange, updatePresence } from "../data/realtime-database.js";
 import renderAllUsersFeed from "../ui-state/render-au-feed.js";
 import renderRequestsFeed from "../ui-state/render-req-feed.js";
 import renderFriendsFeed from "../ui-state/render-friends-feed.js";
+import updateUserPresence from "../ui-state/update-user-presence.js";
 
 const joinHandler = async ({ displayName, uid, email }) => {
 	const userHasColor = await fetchUserColor(uid);
@@ -32,6 +33,11 @@ const joinHandler = async ({ displayName, uid, email }) => {
 	startUI(displayName, userHasColor ?? generatedColor);
 	signinBtnLoader(false);
 	toggleForm();
+
+	updatePresence(uid);
+	setInterval(() => {
+		updatePresence(uid);
+	}, 15000);
 
 	const unsubUsersListener = listenUsers(users => renderAllUsersFeed(users));
 
@@ -57,18 +63,12 @@ const joinHandler = async ({ displayName, uid, email }) => {
 
 	const unsubPresenceListener = listenPresenceChange((data) => {
 		const allUsersList = Array.from(feeds.allUsersFeed.children);
-		const now = Date.now();
+		const friendsList = Array.from(feeds.friendsFeed.children);
 		allUsersList.map((item) => {
-			const uid = item.id.substr(0, item.id.length - 3);
-			if (uid in data) {
-				const { lastSeen } = data[uid];
-				const statusElem = item.querySelector("div > div.user_data p");
-				if (((now - lastSeen) / 1000) > 60) {
-					statusElem.textContent = "offline";
-				} else {
-					statusElem.textContent = "online";
-				}
-			}
+			updateUserPresence(item, data);
+		});
+		friendsList.map((item) => {
+			updateUserPresence(item, data);
 		});
 	});
 };
