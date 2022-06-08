@@ -21,7 +21,7 @@ const updatePresence = (uid, isUserTyping = false) => {
 };
 
 const listenPresenceChange = (callback) => {
-	const listener = onValue(ref(db, "users/"), (snapShot) => {
+	const listener = onValue(ref(rtb, "users/"), (snapShot) => {
 		callback(snapShot.val());
 	});
 	return function() {

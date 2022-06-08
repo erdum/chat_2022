@@ -11,7 +11,8 @@ const renderFriendsFeed = (list) => {
 			createFeedItem(`${item.key}-fr`, feeds.friendsFeed, {
 				...item,
 				key: `${item.key}-fr`,
-				actionIcon: "fa-user-minus"
+				actionIcon: "fa-user-minus",
+				userStatus: "online"
 			});
 		});
 	}

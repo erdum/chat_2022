@@ -1,5 +1,5 @@
 import randomColor from "../helper/random-color.js";
-import { startUI, signinBtnLoader } from "../ui-state/ui-setters.js";
+import { startUI, signinBtnLoader, feeds } from "../ui-state/ui-setters.js";
 import { toggleForm } from "../ui-state/ui-state-togglers.js";
 import {
 	fetchUserColor,
@@ -55,7 +55,22 @@ const joinHandler = async ({ displayName, uid, email }) => {
 		}
 	});
 
-	const unsubPresenceListener = listenPresenceChange((data) => console.log(data));
+	const unsubPresenceListener = listenPresenceChange((data) => {
+		const allUsersList = Array.from(feeds.allUsersFeed.children);
+		const now = Date.now();
+		allUsersList.map((item) => {
+			const uid = item.id.substr(0, item.id.length - 3);
+			if (uid in data) {
+				const { lastSeen } = data[uid];
+				const statusElem = item.querySelector("div > div.user_data p");
+				if (((now - lastSeen) / 1000) > 60) {
+					statusElem.textContent = "offline";
+				} else {
+					statusElem.textContent = "online";
+				}
+			}
+		});
+	});
 };
 
 export default joinHandler;

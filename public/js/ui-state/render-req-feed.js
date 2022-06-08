@@ -11,7 +11,8 @@ const renderRequestsFeed = (list) => {
 			createFeedItem(`${item.key}-req`, feeds.requestsFeed, {
 				...item,
 				key: `${item.key}-req`,
-				actionIcon: "fa-user-check"
+				actionIcon: "fa-user-check",
+				userStatus: "online"
 			});
 		});
 	}

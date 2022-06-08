@@ -11,7 +11,8 @@ const renderAllUsersFeed = (list) => {
 			createFeedItem(`${item.key}-au`, feeds.allUsersFeed, {
 				...item,
 				key: `${item.key}-au`,
-				actionIcon: "fa-user-plus"
+				actionIcon: "fa-user-plus",
+				userStatus: "online"
 			});
 		});
 	}
