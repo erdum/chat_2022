@@ -9,7 +9,7 @@ const populateFeedItem = (data) => {
 	item.outerHTML = `<li id=${
 		data.key
 	} class="data_feed_item"><img class="user_icon" src=${
-		data.iconSrc.replace(/\s/, "+")
+		data.iconSrc.replace(/\s/g, "+")
 	} loading="lazy"><div data-key=${
 		data.key
 	} class="user_action_wrapper"><div class="user_data"><h3>${

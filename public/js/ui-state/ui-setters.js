@@ -31,7 +31,7 @@ const setStatusText = (text) => {
 const setUserAvatar = (name, bg) => {
 	status.childNodes[1].setAttribute(
 		"src",
-		`https://ui-avatars.com/api/?name=${name.replace(/\s/, "+")}&background=${bg}&color=ffffff`
+		`https://ui-avatars.com/api/?name=${name.replace(/\s/g, "+")}&background=${bg}&color=ffffff`
 	);
 };
 
