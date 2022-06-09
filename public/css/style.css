@@ -438,6 +438,7 @@ body {
     background-color: black;
     color: white;
     font-size: 1.6rem;
+    resize: none;
 }
 
 .chat_bar>button {
