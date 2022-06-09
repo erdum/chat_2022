@@ -39,7 +39,17 @@ const joinHandler = async ({ displayName, uid, email }) => {
 		updatePresence(uid);
 	}, 15000);
 
-	const unsubUsersListener = listenUsers(users => renderAllUsersFeed(users));
+	let unsubPresenceListenerForAllUsers = null;
+	let unsubPresenceListenerForFriends = null;
+
+	const unsubUsersListener = listenUsers(users => {
+		renderAllUsersFeed(users);
+		if (unsubPresenceListenerForAllUsers != null) unsubPresenceListenerForAllUsers();
+		unsubPresenceListenerForAllUsers = listenPresenceChange(data => {
+			const allUsersList = Array.from(feeds.allUsersFeed.children);
+			allUsersList.forEach(item => updateUserPresence(item, data));
+		});
+	});
 
 	const unsubRequestsListener = listenRequests(async (requests) => {
 		if (requests.length > 0) {
@@ -56,20 +66,15 @@ const joinHandler = async ({ displayName, uid, email }) => {
 			let users = await getProfilesByIds(friends);
 			users = await profilesToRenderList(users);
 			renderFriendsFeed(users);
+
+			if (unsubPresenceListenerForFriends != null) unsubPresenceListenerForFriends();
+			unsubPresenceListenerForFriends = listenPresenceChange(data => {
+				const friendsList = Array.from(feeds.friendsFeed.children);
+				friendsList.forEach(item => updateUserPresence(item, data, true));
+			});
 		} else {
 			renderFriendsFeed([]);
 		}
-	});
-
-	const unsubPresenceListener = listenPresenceChange((data) => {
-		const allUsersList = Array.from(feeds.allUsersFeed.children);
-		const friendsList = Array.from(feeds.friendsFeed.children);
-		allUsersList.map((item) => {
-			updateUserPresence(item, data);
-		});
-		friendsList.map((item) => {
-			updateUserPresence(item, data, true);
-		});
 	});
 };
 
