@@ -68,7 +68,7 @@ const joinHandler = async ({ displayName, uid, email }) => {
 			updateUserPresence(item, data);
 		});
 		friendsList.map((item) => {
-			updateUserPresence(item, data);
+			updateUserPresence(item, data, true);
 		});
 	});
 };
