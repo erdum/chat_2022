@@ -35,6 +35,7 @@ const openConversation = async (id) => {
 	const handleSend = async () => {
 		const text = msgInput.value;
 		msgInput.value = "";
+		updatePresence(auth.currentUser.uid, false);
 		await sendMsg(id.substr(0, id.length - 3), text);
 	};
 
