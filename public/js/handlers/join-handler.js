@@ -34,7 +34,7 @@ const joinHandler = async ({ displayName, uid, email }) => {
 	signinBtnLoader(false);
 	toggleForm();
 
-	updatePresence(uid);
+	updatePresence(uid, false);
 	setInterval(() => {
 		updatePresence(uid);
 	}, 15000);
