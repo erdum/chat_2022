@@ -144,7 +144,11 @@ const toggleSearchBar = (state) => {
 const setStatusBadge = (online, typing) => {
 	if (online) {
 		status.classList.add("online");
-		if (typing) status.classList.add("typing");
+		if (typing) {
+			status.classList.add("typing");
+		} else {
+			status.classList.remove("typing");
+		}
 	} else {
 		status.classList.remove("online", "typing");
 	}
