@@ -8,6 +8,7 @@ import { auth } from "../app.js";
 
 let unsubMessagesListener = null;
 let unsubPresenceListener = null;
+let presenceTimer = null;
 
 const clearMessages = () => {
 	const chatBox = document.querySelector(".chat_ui");
@@ -42,15 +43,19 @@ const openConversation = async (id) => {
 		updatePresence(auth.currentUser.uid, text.length > 0);
 	};
 
-	if (unsubPresenceListener != null) unsubPresenceListener();
-	unsubPresenceListener = listenUserPresence(id.substr(0, id.length - 3), data => {
-		const now = Date.now();
-		if ((now - data.lastSeen) / 1000 <= 15) {
-			setStatusBadge(true, data.typing);
-		} else {
-			setStatusBadge(false, data.typing);
-		}
-	});
+	if (presenceTimer != null) clearInterval(presenceTimer);
+	presenceTimer = setInterval(() => {
+		if (unsubPresenceListener != null) unsubPresenceListener();
+		unsubPresenceListener = listenUserPresence(id.substr(0, id.length - 3), data => {
+			const now = Date.now();
+			if ((now - data.lastSeen) / 1000 <= 15) {
+				setStatusBadge(true, data.typing);
+			} else {
+				setStatusBadge(false, data.typing);
+			}
+		});
+	}, 15000);
+
 
 	if (unsubMessagesListener != null) unsubMessagesListener();
 	unsubMessagesListener = listenMessages(messages => {
