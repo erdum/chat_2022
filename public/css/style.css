@@ -85,6 +85,30 @@ body {
     transition: var(--tr);
 }
 
+.status::after {
+	content: "";
+	width: 8px;
+	aspect-ratio: 1/1;
+	background-color: gray;
+	position: absolute;
+	top: 8px;
+	left: 16px;
+	border-radius: 50%;
+	display: none;
+}
+
+.status.show:after {
+	display: block;
+}
+
+.status.online:after {
+	background-color: #32cd32;
+}
+
+.status.typing:after {
+	background-color: #ffbf00;
+}
+
 .status > img {
 	width: 44px;
 	height: 44px;

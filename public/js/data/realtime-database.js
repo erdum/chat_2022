@@ -6,6 +6,7 @@ import {
 	set,
 	update,
 	onValue,
+	off
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
 
 const rtb = getDatabase();
@@ -27,7 +28,16 @@ const updatePresence = (uid, isUserTyping = null) => {
 };
 
 const listenPresenceChange = (callback) => {
-	const listener = onValue(ref(rtb, "users/"), (snapShot) => {
+	const listener = onValue(ref(rtb, "users/"), snapShot => {
+		callback(snapShot.val());
+	});
+	return function () {
+		off(listener);
+	};
+};
+
+const listenUserPresence = (uid, callback) => {
+	const listener = onValue(ref(rtb, `users/${uid}`), snapShot => {
 		callback(snapShot.val());
 	});
 	return function () {
@@ -39,4 +49,5 @@ export {
 	setUserPresence,
 	updatePresence,
 	listenPresenceChange,
+	listenUserPresence
 };

@@ -18,6 +18,7 @@ let actionBarState = false;
 let introState = false;
 let feedState = false;
 let chatState = false;
+let badgeState = false;
 
 // ---------------------------- State Togglers ------------------
 const toggleNavbar = () => {
@@ -28,6 +29,15 @@ const toggleNavbar = () => {
 	}
 	navbarState = !navbarState;
 };
+
+const toggleStatusBadge = () => {
+	if (badgeState) {
+		status.classList.remove("show");
+	} else {
+		status.classList.add("show");
+	}
+	badgeState = !badgeState;
+}; 
 
 const toggleBanner = () => {
 	if (!bannerState) {
@@ -102,4 +112,5 @@ export {
 	toggleIntro,
 	toggleFeed,
 	toggleChat,
+	toggleStatusBadge
 };

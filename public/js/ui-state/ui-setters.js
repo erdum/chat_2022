@@ -5,7 +5,8 @@ import {
 	toggleActionBar,
 	toggleFeed,
 	toggleTabBar,
-	toggleChat
+	toggleChat,
+	toggleStatusBadge
 } from "./ui-state-togglers.js";
 import removeAllEvents from "../helper/remove-events.js";
 import { getCurrProfile } from "../data/firestore.js";
@@ -61,6 +62,7 @@ const resetUI = async () => {
 	toggleActionBar();
 	toggleFeed();
 	toggleChat();
+	toggleStatusBadge();
 };
 
 const openChat = (name, userColor) => {
@@ -139,6 +141,15 @@ const toggleSearchBar = (state) => {
 	}
 };
 
+const setStatusBadge = (online, typing) => {
+	if (online) {
+		status.classList.add("online");
+		if (typing) status.classList.add("typing");
+	} else {
+		status.classList.remove("online", "typing");
+	}
+};
+
 const feeds = {
 	allUsersFeed: dataFeeds[0],
 	requestsFeed: dataFeeds[1],
@@ -157,5 +168,6 @@ export {
 	setDataFeedHeading,
 	changeDataFeed,
 	toggleSearchBar,
-	feeds
+	feeds,
+	setStatusBadge
 };
