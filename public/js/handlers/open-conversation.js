@@ -46,7 +46,7 @@ const openConversation = async (id) => {
 
 	unsubPresenceListener = unsubPresenceListener = listenUserPresence(id.substr(0, id.length - 3), data => {
 		const now = Date.now();
-		if ((now - data.lastSeen) / 1000 <= 15) {
+		if ((now - data.lastSeen) / 1000 < 15) {
 			setStatusBadge(true, data.typing);
 		} else {
 			setStatusBadge(false, data.typing);
@@ -58,7 +58,7 @@ const openConversation = async (id) => {
 		if (unsubPresenceListener != null) unsubPresenceListener();
 		unsubPresenceListener = listenUserPresence(id.substr(0, id.length - 3), data => {
 			const now = Date.now();
-			if ((now - data.lastSeen) / 1000 <= 13) {
+			if ((now - data.lastSeen) / 1000 < 15) {
 				setStatusBadge(true, data.typing);
 			} else {
 				setStatusBadge(false, data.typing);
