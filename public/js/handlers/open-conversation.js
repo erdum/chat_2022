@@ -31,6 +31,7 @@ const openConversation = async (id) => {
 	clearMessages();
 	openChat(name, color);
 	toggleStatusBadge();
+	updatePresence(auth.currentUser.uid, false);
 
 	const handleSend = async () => {
 		const text = msgInput.value;
