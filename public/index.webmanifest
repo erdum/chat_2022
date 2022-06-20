@@ -9,9 +9,20 @@
 			"type": "image/png"
 		},
 		{
+			"src": "./images/icon-64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
 			"src": "./images/icon-512.png",
 			"sizes": "512x512",
 			"type": "image/png"
+		},
+		{
+			"src": "./images/maskable_icon.png",
+			"sizes": "64x64",
+			"type": "image/png",
+			"purpose": "maskable"
 		}
 	],
 	"start_url": "chat-2022-erdum.vercel.app/index.html",
