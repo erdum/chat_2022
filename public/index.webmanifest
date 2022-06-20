@@ -1,0 +1,21 @@
+{
+	name: "Supreme Chat 2022 | Instant chating web application",
+	short_name: "Chat 2022",
+	description: "Instant chating web application developed with only pure javascript no external technologies or framework is used",
+	icons: [
+		{
+			src: "./images/icon-32.png",
+			sizes: "32x32",
+			type: "image/png"
+		},
+		{
+			src: "./images/icon-512.png",
+			sizes: "512x512",
+			type: "image/png"
+		},
+	],
+	start_url: "chat-2022-erdum.vercel.app/index.html",
+	display: "standalone",
+	theme_color: "#FF0002",
+	background_color: "#FF0002"
+}
