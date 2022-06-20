@@ -46,6 +46,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 				JOIN_LOCK = true;
 				signinBtnLoader(true);
 				joinHandler(user);
+				Notification.requestPermission();
 			} else {
 				JOIN_LOCK = false;
 			}
