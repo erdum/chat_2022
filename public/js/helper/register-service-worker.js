@@ -5,7 +5,7 @@ const resgisterServiceWorker = () => {
 				.register("/sw.js", {
 					scope: "/",
 				})
-				.then(Notification.requestPermission);
+				.then(() => Notification.requestPermission());
 		} catch (error) {
 			console.log(`serviceWorker installation failed with ${error}`);
 		}
