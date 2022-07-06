@@ -1,5 +1,3 @@
-import subscribeNotification from "./subscribe-notification.js";
-
 const resgisterServiceWorker = () => {
 	if ("serviceWorker" in navigator) {
 		try {
@@ -7,7 +5,7 @@ const resgisterServiceWorker = () => {
 				.register("/sw.js", {
 					scope: "/",
 				})
-				.then(subscribeNotification);
+				.then(Notification.requestPermission);
 		} catch (error) {
 			console.log(`serviceWorker installation failed with ${error}`);
 		}
