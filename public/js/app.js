@@ -17,6 +17,7 @@ import {
 import { signinBtnLoader } from "./ui-state/ui-setters.js";
 import joinHandler from "./handlers/join-handler.js";
 import app from "./data/firebase.js";
+import registerServiceWorker from "./helper/register-service-worker.js";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
@@ -46,6 +47,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 				JOIN_LOCK = true;
 				signinBtnLoader(true);
 				joinHandler(user);
+				registerServiceWorker();
 				Notification.requestPermission();
 			} else {
 				JOIN_LOCK = false;

@@ -2,7 +2,7 @@ const resgisterServiceWorker = async () => {
 	if ("serviceWorker" in navigator) {
 		try {
 			const resgistration = await navigator.serviceWorker.register(
-				"/sw.js"
+				"js/sw.js"
 			);
 
 			if (registration.installing) {
@@ -14,7 +14,7 @@ const resgisterServiceWorker = async () => {
 			}
 		} catch (error) {
 			console.log(
-				`serviceWorker installation failed with error ${error}`
+				`serviceWorker installation failed with ${error}`
 			);
 		}
 	}
