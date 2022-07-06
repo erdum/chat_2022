@@ -4,7 +4,7 @@ import { openChat, setStatusBadge } from "../ui-state/ui-setters.js";
 import { toggleStatusBadge } from "../ui-state/ui-state-togglers.js";
 import renderMessages from "../ui-state/render-messages.js";
 import { auth } from "../app.js";
-import { newMsgNotification } from "../helper/renderNotification.js";
+import { AppNotification } from "../helper/register-service-worker.js";
 
 
 let unsubMessagesListener = null;
@@ -39,7 +39,7 @@ const openConversation = async (id) => {
 		msgInput.value = "";
 		updatePresence(auth.currentUser.uid, false);
 		await sendMsg(id.substr(0, id.length - 3), text);
-		newMsgNotification(name, color,text);
+		AppNotification.renderNotification(name, color,text);
 	};
 
 	const handleTyping = (event) => {
