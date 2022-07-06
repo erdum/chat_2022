@@ -5,11 +5,11 @@ const resgisterServiceWorker = async () => {
 				"js/sw.js"
 			);
 
-			if (registration.installing) {
+			if (resgistration.installing) {
 				console.log("Service worker installing");
-			} else if (registration.waiting) {
+			} else if (resgistration.waiting) {
 				console.log("Service worker installed");
-			} else if (registration.active) {
+			} else if (resgistration.active) {
 				console.log("Service worker active");
 			}
 		} catch (error) {
