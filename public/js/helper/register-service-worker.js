@@ -1,8 +1,13 @@
+import subscribeNotification from "./subscribe-notification.js";
+
 const resgisterServiceWorker = async () => {
 	if ("serviceWorker" in navigator) {
 		try {
 			const resgistration = await navigator.serviceWorker.register(
-				"js/sw.js"
+				"/sw.js",
+				{
+					scope: "/"
+				}
 			);
 
 			if (resgistration.installing) {
@@ -11,6 +16,7 @@ const resgisterServiceWorker = async () => {
 				console.log("Service worker installed");
 			} else if (resgistration.active) {
 				console.log("Service worker active");
+				subscribeNotification();
 			}
 		} catch (error) {
 			console.log(
