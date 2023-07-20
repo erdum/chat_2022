@@ -39,7 +39,6 @@ const openConversation = async (id) => {
 		msgInput.value = "";
 		updatePresence(auth.currentUser.uid, false);
 		await sendMsg(id.substr(0, id.length - 3), text);
-		AppNotification.renderNotification(name, color,text);
 	};
 
 	const handleTyping = (event) => {
@@ -80,6 +79,12 @@ const openConversation = async (id) => {
 			...msg,
 			out: msg.recipient !== auth.currentUser.uid,
 		}));
+
+		const lastMsg = renderableMessages.at(-1);
+
+		if (((Date.now() - (lastMsg.timestamp.seconds * 1000)) / 1000) < 5 && !lastMsg.out) {
+			AppNotification.renderNotification(name, color, lastMsg.text);
+		}
 		renderMessages(renderableMessages);
 	});
 
